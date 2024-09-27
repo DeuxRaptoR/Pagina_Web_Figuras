@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		{% load static %}
+
+		<meta charset="UTF-8"/>
+		<title>Registro de Figuras</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"/>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"/>
+		
+		<script>
+            const botonCerrarSesion = () => {
+                if(window.confirm("¿Está Seguro De Querer Cerrar La Sesión?")){
+                    window.location.href = "/logout";
+                }
+            }
+        </script>
+
+
+		
+		<script>
+			const botonEliminarFigura = (id) => {
+				if(window.confirm("¿Está Seguro(a) De Querer Eliminar El Registro?")){
+					window.location.href = "/eliminar_figura/"+ id;
+				}
+			}
+		</script>
+
+	</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-expand-lg bg-primary">
+			<div class="container-fluid">
+
+				<span class="navbar-brand text-white">Usuario Logeado</span><span class="navbar-brand text-white">
+					{{ nomUsuario }}
+				</span>
+				
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link text-center text-white" href="/menu_admin">Inicio</a>
+						<a class="nav-link text-center text-white" href="#" onClick="botonCerrarSesion()">Cerrar Sesión</a>					
+					</div>
+				</div>
+			</div>
+	  	</nav>
+		
+
+		{% if r %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<h5>{{ r }}</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endif %}
+
+		{% if r2 %}
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<h5>{{ r2 }}</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endif %}
+	  
+		<div style="padding-top:10px; padding-bottom:10px;">
+		
+			<div style="width:80%; background-color:#fff; margin:auto;">
+				
+				<form action="/registrar_figura" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<center>
+						<h1>Registro de Figuras</h1>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Nombre de la Figura"  name="txtnom"  required/>
+                        <input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="file"  placeholder="Imagen de la Figura"  name="txtimg" accept="image/png, image/gif, image/jpeg" required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Nombre del personaje"  name="txtper"  required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Fabricante de la Figura"  name="txtfab"  required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="number"  placeholder="Precio de la Figura"  name="numpre"  required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="number"  placeholder="Tamaño de la Figura"  name="numtam"  required/>
+                        <input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Material de la Figura"  name="txtmat"  required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Accesorios de la Figura"  name="txtacc"  required/>
+						<input class="form-control form-control-lg text-center" style="margin-bottom:10px; width:95%;"  type="text"  placeholder="Categoria de la Figura"  name="txtcat"  required/>
+
+
+						<input type="submit" class="btn btn-primary btn-lg"     style="width:95%;" value="Registrar Figura"/>
+					</center>
+				</form>
+				
+			</div>
+
+		</div>
+
+	</div>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	
+</body>
+</html>
